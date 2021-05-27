@@ -108,3 +108,21 @@ This project walks you through creating a [Jenkins Docker image](https://hub.doc
 16. In a browser, navigate back to the Jenkins server web page and log in.
 
     * The job created earlier is still there as well as it's output.
+
+17. (*Optional*) - Add a [**restart policy**](https://docs.docker.com/config/containers/start-containers-automatically/) to automatically start containers when they exit, or when Docker restarts.
+
+    ```bash
+        docker container run -d -p 8082:8080 \
+            -v my-jenkins-volume:/var/jenkins_home \
+            --name jenkins-local \
+            --restart [no/on-failure/always/unless-stopped] \
+            jenkins/jenkins:lts
+    ```
+
+    * Or, if it's already running...
+
+    ```bash
+        docker update \
+            --restart [no/on-failure/always/unless-stopped] \
+            [CONTAINER ID or NAME]
+    ```
